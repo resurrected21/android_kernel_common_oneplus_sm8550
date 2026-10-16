@@ -2540,12 +2540,9 @@ void netif_napi_add_weight(struct net_device *dev, struct napi_struct *napi,
  * netif_napi_add() must be used to initialize a NAPI context prior to calling
  * *any* of the other NAPI-related functions.
  */
-static inline void
-netif_napi_add(struct net_device *dev, struct napi_struct *napi,
-	       int (*poll)(struct napi_struct *, int), int weight)
-{
-	netif_napi_add_weight(dev, napi, poll, weight);
-}
+/* ANDROID: KMI: kept as an exported function for GKI vendor modules */
+void netif_napi_add(struct net_device *dev, struct napi_struct *napi,
+		    int (*poll)(struct napi_struct *, int), int weight);
 
 static inline void
 netif_napi_add_tx_weight(struct net_device *dev,
