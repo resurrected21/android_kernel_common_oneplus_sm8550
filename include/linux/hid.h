@@ -605,7 +605,6 @@ struct hid_device {							/* device report descriptor */
 	struct semaphore driver_input_lock;				/* protects the current driver */
 	struct device dev;						/* device */
 	struct hid_driver *driver;
-	void *devres_group_id;						/* ID of probe devres group	*/
 
 	struct hid_ll_driver *ll_driver;
 	struct mutex ll_open_lock;
@@ -663,7 +662,8 @@ struct hid_device {							/* device report descriptor */
 	wait_queue_head_t debug_wait;
 
 	ANDROID_KABI_USE(1, struct { u32 initial_quirks; u32 padding; });
-	ANDROID_KABI_RESERVE(2);
+	/* ID of probe devres group (v5.15.22x HID fix, in KABI slot) */
+	ANDROID_KABI_USE(2, void *devres_group_id);
 };
 
 #define to_hid_device(pdev) \
